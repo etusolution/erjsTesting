@@ -1,0 +1,42 @@
+<html>
+<title>modify-cart</title>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+<script id="etu-recommender" type="text/javascript">
+var erHostname='192.168.70.10'; 
+var _qevent = [];
+var erUrlPrefix = '';
+function modicart(vact,vpid,vcat) //add event parameters in this function
+{
+		_qevent = [];
+    	_qevent.push({
+        cid : 'user-behavior-com',
+        uid : '',
+        act : vact,
+        pid : vpid,
+        cat: vcat
+    }); 
+	erUrlPrefix=('https:' == document.location.protocol ?'https://':'http://')+erHostname+'/';
+    (function() {
+        var er = document.createElement('script');
+        er.type = 'text/javascript';
+        er.async = true;
+        er.src = erUrlPrefix+'/er.js?'+(new Date().getDay());
+        var currentJs=document.getElementById('etu-recommender');
+        currentJs.parentNode.insertBefore(er,currentJs); 
+      })();
+}
+</script>
+<h4>pid001</h4>
+<button type="button" onclick="modicart('addcart','pid001','cat01');">Add product01</button>
+<button type="button" onclick="modicart('delcart','pid001','cat01');">Remove product01</button>
+<h4>pid002</h4>
+<button type="button" onclick="modicart('addcart','pid002','cat02');">Add product02</button>
+<button type="button" onclick="modicart('delcart','pid002','cat02');">Remove product02</button>
+ 
+</body>
+
+</html>
+

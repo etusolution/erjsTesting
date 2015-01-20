@@ -2,18 +2,167 @@
 <meta charset="utf-8">
 <html>
 <head>
+	<!--script id="TEST-erjs" type="text/javascript">
+		window.onload = function(){
+			getCustomizeActionData();
+		}
+		
+		function getCustomizeActionData(){
+			var actionAttr = document.getElementsByClassName("custom-action");
+			var temp_qevent = {}
+			for( i in actionAttr ){
+				temp_qevent[actionAttr[i].placeholder] = actionAttr[i].value;
+			}
+			console.log("qevent: "+temp_qevent);
+		}
+	</script-->
+	<script id="etu-recommender" type="text/javascript">
+    	var erHostname='210.63.38.209';
+		var erUrlPrefix='210.63.38.209';//for local test
+		var _qevents = _qevents || [];
 
+		_qevents.push({ 
+			group : "ER",
+			cid : "saas_testing_ec",
+			uid : "testbot",
+        	act : "VIEW",
+        	pid : "testproduct",
+        	cat : "testcat",
+        	ptuple : [
+        	{
+        		paypid : "testpay",
+				qty : "1",
+				unit_price : "12345",
+				pcat : "testpcat",
+				pmk : "testpromo",
+			}],
+			ercamp : "testcamp",
+			erad : "testad",
+        });
+        
+        var erUrlPrefix=('https:' == document.location.protocol ?'https://':'http://')+erHostname+'/';
+
+    	function ERsend(){
+    		_qevents = [];
+    		_qevents.push({ 
+    			group : document.getElementById("agroup").value,
+				cid : document.getElementById("acid").value,
+				uid : document.getElementById("auid").value,
+	        	act : document.getElementById("aact").value,
+    	    	pid : document.getElementById("apid").value,
+        		cat : document.getElementById("acat").value,
+        		ptuple : [
+        		{
+        			paypid : document.getElementById("apaypid").value,
+					qty : document.getElementById("aqty").value,
+					unit_price : document.getElementById("aunit_price").value,
+					pcat : document.getElementById("apcat").value,
+					pmk : document.getElementById("apmk").value,
+				}],
+				ercamp : document.getElementById("aercamp").value,
+				erad : document.getElementById("aerad").value,
+        	});
+
+	    	_qquery1 = [];
+    	    _qquery2 = [];
+        	_qquery3 = [];
+	        _qquery1.push({
+    	    });
+
+        	_qquery2.push({
+        	});
+
+        	_qquery3.push({
+        	});
+
+        	var _qqueryList = [ _qquery1 , _qquery2, _qquery3  ];
+
+    		ER.track.send(_qevents, [], '', _qqueryList);
+    	}
+
+    	(function() {
+    		var er = document.createElement('script');
+        	er.type = 'text/javascript';
+        	er.async = true;
+        	er.src = erUrlPrefix+'er.js?'+(new Date().getDate());
+        	var currentJs=document.getElementById('etu-recommender');
+        	currentJs.parentNode.insertBefore(er,currentJs);
+    	})();
+
+    	//function getCustomizeActionData(){
+    	//}
+
+	</script>
 </head>
 <body>
 	<h1>er.js testing EC site</h1>
 	<div id = "homepage">
 		Here is the home page of EC site
 	</div>
-	<div>
-		<a id = "register" href="register.html"> 點我登入 </a>
+	<br>
+	<br>
+	<div id = "setDefault">
+		<legend> default </legend>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dgroup" placeholder = "group" value = "ER"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dcid" placeholder = "cid" value = "saas_testing_ec"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "duid" placeholder = "uid" value = ""/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dact" placeholder = "act" value = "VIEW"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dcat" placeholder = "cat" value = "testcat"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dpid" placeholder = "pid" value = "testproduct"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dpcat" placeholder = "pcat" value = "testpcat"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dpaypid" placeholder = "paypid" value = "testpay"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dunit_price" placeholder = "unit_price" value = "12345"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dpmk" placeholder = "pmk" value = "testpromo"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dqty" placeholder = "qty" value = "1"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "dercamp" placeholder = "ercamp" value = "testcamp"/><br>
+		<label> fill </label>
+		<input class = "default-action" type = "text" id = "derad" placeholder = "erad" value = "testad"/><br>
+		
+		<p></p>
 	</div>
-	<div>
-		<a id = "unregister" href="product.html"> 我不登入 </a>
+	<br>
+	<br>
+	<div id = "setAction">
+		<legend> action </legend>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "agroup" placeholder = "group" value = "ER"/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "acid" placeholder = "cid" value = "ER_web-testing"/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "auid" placeholder = "uid" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "aact" placeholder = "act" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "acat" placeholder = "cat" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "apid" placeholder = "pid" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "apcat" placeholder = "pcat" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "apaypid" placeholder = "paypid" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "aunit_price" placeholder = "unit_price" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "apmk" placeholder = "pmk" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "aqty" placeholder = "qty" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "aercamp" placeholder = "ercamp" value = ""/><br>
+		<label> fill </label>
+		<input class = "custom-action" type = "text" id = "aerad" placeholder = "erad" value = ""/><br>
+		<button class = "test" type = "button" id="custom-click" onclick = "ERsend()"> 送出資料 </button>
 	</div>
 </body>
 </html>

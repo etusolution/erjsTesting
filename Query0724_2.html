@@ -1,0 +1,249 @@
+<html>
+<title>Event/Query</title>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script id="etu-recommender" type="text/javascript">
+    var erHostname='210.63.38.209';
+	var erUrlPrefix='210.63.38.209';//for local test
+	
+	
+    var _qevents = _qevents || [];
+    _qevents.push({ 
+    	cid : 'user-behavior-com',
+        act : 'view',
+        pid : '145510',
+        cat  : 'cat01',
+        abc : 'aaaa',
+        group : 'UDN',
+        ptuple: [
+	             {
+	            	paypid:"U049132",
+					qty:"1",
+					unit_price:"100",
+					pcat:"A,A01,A01_001",
+					pmk:"discount,festival"
+	             }
+	           	]
+        //plist : '1377003,1,99',
+        //oid : 'orderdh003'
+          });
+    
+    function getCustomizeActionData(){
+        
+    }
+    
+    //var _qeventList = [ _qevents1,_qevents2  ]; 
+    /*
+    */
+    /*
+    var _qquery = _qquery || [];
+
+	_qquery.push({
+        cid : 'user-behavior-com',
+        type : 'item',
+        act : 'cart',
+        pid : 'pid393',
+        cmopl:'0'
+    });
+	*/
+
+/*
+//0007057 : query cat=中分類
+var strCat = "";
+var catList = [];
+catList.push('G');
+catList.push('G_020');
+catList.push('G_020_007');
+catList.push('G_020_007_004');
+catList.push('G_020_007_004_004');
+strCat =  catList[catList.length-1];
+*/
+
+//erUid=3bbe6329-231-8737-7d73-93465a80f390   
+
+    var _qquery1 = _qquery1 || [];
+    var _qquery2 = _qquery2 || [];
+    var _qquery3 = _qquery3 || [];
+    
+    /*
+    //ADs
+    _qquery1.push({
+    	cid : 'user-behavior.com',
+    	type : 'user',
+    	act : 'view',
+    	uid: 'Usr41',
+    	alg : 'ad_most_freq',
+    	imgH: '80',
+    	imgW: '360',
+    	qname:'Q1'
+    });
+    */
+    
+    _qquery1.push({
+    	cid : 'user-behavior-com',
+        type : 'user',
+        act : 'view',
+        uid : 'Usr145',
+        compl:'0',
+        qname:'Q1'
+        //cat : strCat
+        
+    });
+    
+    _qquery2.push({
+    	cid : 'user-behavior-com',
+        type : 'item',
+        act : 'view',
+        pid : 'pid393',
+        compl:'0',
+        qname:'Q2'
+        //cat : strCat
+    });
+    
+    _qquery3.push({
+    	cid : 'user-behavior-com',
+        type : 'item',
+        act : 'order',
+        pid : 'pid393',
+        alg : 'co_occurrence',
+        compl:'0',
+        qname:'Q3'
+        //cat : strCat
+    });
+    
+    var _qqueryList = [ _qquery1 , _qquery2, _qquery3  ];         
+ 	
+    function etuRecQueryCallBack(queryParams,queryResult) { 
+    		//implement UI code here
+    		if('Q1' == queryParams['qname']){//Q1
+    			document.getElementById('result1').innerText=queryResult.toString(); 
+    		}else if ('Q2' == queryParams['qname']){ //Q2
+    			document.getElementById('result2').innerText=queryResult.toString();  
+    		}else if ('Q3' == queryParams['qname']){ //Q3
+    			document.getElementById('result3').innerText=queryResult.toString();  
+    	    }else{
+    			//do nothing
+    			alert("Error");
+    		}
+    }  
+    var erUrlPrefix=('https:' == document.location.protocol ?'https://':'http://')+erHostname+'/';
+
+    function ERsend(){
+    	_qevents = [];
+    	_qevents.push({ 
+        	cid : 'user-behavior-com',
+            act : 'order',
+            pid : '145510',
+            cat  : 'cat0143423',
+            abc : 'bbbb',
+            group : 'UDN',
+            ptuple: [
+    	             {
+    	            	paypid:"U049132",
+    					qty:"10000",
+    					unit_price:"100",
+    					pcat:"A,A01,A01_001",
+    					pmk:"discount,festival"
+    	             }
+    	           	]
+            //plist : '1377003,1,99',
+            //oid : 'orderdh003'
+              });
+    	_qquery1 = [];
+        _qquery2 = [];
+        _qquery3 = [];
+        _qquery1.push({
+        	cid : 'user-behavior-com',
+            type : 'user',
+            act : 'view',
+            uid : 'Usr145',
+            compl:'0',
+            qname:'Q1'
+            //cat : strCat
+            
+        });
+        
+        _qquery2.push({
+        	cid : 'user-behavior-com',
+            type : 'item',
+            act : 'view',
+            pid : 'pid393',
+            compl:'0',
+            qname:'Q2'
+            //cat : strCat
+        });
+        
+        _qquery3.push({
+        	cid : 'user-behavior-com',
+            type : 'item',
+            act : 'order',
+            pid : 'pid393',
+            alg : 'co_occurrence',
+            compl:'0',
+            qname:'Q3'
+            //cat : strCat
+        });
+        var _qqueryList = [ _qquery1 , _qquery2, _qquery3  ];
+        
+        /** Send action **/
+    	ER.track.send(_qevents, [], '', _qqueryList);
+    }
+    (function() {
+    	var er = document.createElement('script');
+        er.type = 'text/javascript';
+        er.async = true;
+        er.src = erUrlPrefix+'er.js?'+(new Date().getDate());
+        var currentJs=document.getElementById('etu-recommender');
+        currentJs.parentNode.insertBefore(er,currentJs);
+    })();
+    
+  //get 'ETU_REC_user-behavior.com_ITEM' ,'-1006363824609882436'
+  //get 'ETU_REC_user-behavior.com_USER' ,'-1063921717445558817'
+    /*
+     *  f:avl_cat                 timestamp=1402825180073, value=1                                         
+     f:avl_item                timestamp=1402825159905, value=1                                         
+     f:cat                     timestamp=1402825159905, value=cat_odd,%E7%A8%AE%E9%A1%9E%2F4            
+     f:id                      timestamp=1402825159905, value=pid393                                    
+     f:pry                     timestamp=1402825159905, value=0                                         
+     f:rec_cart                timestamp=1402824612979, value=pid318,pid304,pid314,pid345,pid398,pid302,
+                               pid364                                                                   
+     f:rec_order               timestamp=1402824625837, value=pid379,pid345,pid349,pid398,pid344,pid304,
+                               pid358                                                                   
+     f:rec_order_co_occurrence timestamp=1402825232571, value=pid399                                    
+     f:rec_view                timestamp=1402824627661, value=pid379,pid364,pid386,pid318  
+     */
+    
+</script>
+
+
+</head>
+<body>
+
+	
+	<script type="text/javascript">
+var cookieName = 'HelloWorld';
+var cookieValue = 'HelloWorld';
+var myDate = new Date();
+myDate.setMonth(myDate.getMonth() + 12);
+console.log(document.cookie); 
+document.cookie ='';
+//document.cookie = document.cookie +";"+cookieName +"=" + cookieValue + ";expires=" + myDate + ";domain=localhost;path=/";
+                  
+                  console.log(document.cookie);               
+</script>
+	
+
+	
+		result_user_order: <p id="result1"></p>
+		result_item_view: <p id="result2"></p>
+		result_item_order_co_ocurrence: <p id="result3"></p>	
+		<button type="button" onclick="document.cookie=&quot;abc=123;domain=localhost;path=/&quot;">Create Cookie 1</button>
+		<button type="button" onclick="document.cookie=&quot;lastname=Smith;path=/;expires=Wed, 18 Dec 2023 12:00:00 GMT&quot;">Create Cookie 2</button>
+		<button type="button" onclick="document.cookie=&quot;filename=derek;expires=Wed, 18 Dec 2017 12:00:00 GMT&quot;">Create Cookie 3</button>
+		<button class = "test" type = "button" onclick = "ERsend()"></button>
+</body>
+
+</html>
+
